@@ -190,6 +190,9 @@ These values are just samples, for more fine-tuning please check the values.yaml
 |----|-----------|--------------|
 | store.enabled | Enable component | true |
 | store.replicaCount | Pod replica count | 1 |
+| store.statefulSet.enabled | Use StatefulSet instead of Deployment | false |
+| store.statefulSet.size | Size of the PVC | 10G |
+| store.statefulSet.storageClassName | StorageClassName for the PVC | default |
 | store.logLevel | Log level | info |
 | store.logFormat | Log format to use. Possible options: logfmt or json. | logfmt |
 | store.indexCacheSize | Maximum size of items held in the index cache. | 250MB |

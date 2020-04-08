@@ -55,6 +55,11 @@ store:
   #    volumeName: ""
   #    volumeMode: ""
   # Extra labels for store pod template
+  # StatefulSet rather than Deployment
+  statefulSet:
+    enabled: false
+    size: 10G
+    storageClassName: default
   labels: {}
   #  cluster: example
   #
