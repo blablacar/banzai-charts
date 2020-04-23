@@ -190,6 +190,7 @@ These values are just samples, for more fine-tuning please check the values.yaml
 |----|-----------|--------------|
 | store.enabled | Enable component | true |
 | store.replicaCount | Pod replica count | 1 |
+| store.replicaSharding | Use label replica to shard data | false |
 | store.logLevel | Log level | info |
 | store.logFormat | Log format to use. Possible options: logfmt or json. | logfmt |
 | store.indexCacheSize | Maximum size of items held in the index cache. | 250MB |
