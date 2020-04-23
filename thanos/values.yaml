@@ -60,6 +60,8 @@ store:
     enabled: false
     size: 10G
     storageClassName: default
+  # Use label replica to shard data on store
+  replicaSharding: false
   labels: {}
   #  cluster: example
   #

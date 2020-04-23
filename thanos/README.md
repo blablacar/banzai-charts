@@ -188,6 +188,7 @@ These values are just samples, for more fine-tuning please check the values.yaml
 |----|-----------|--------------|
 | store.enabled | Enable component | true |
 | store.replicaCount | Pod replica count | 1 |
+| store.replicaSharding | Use label replica to shard data | false |
 | store.statefulSet.enabled | Use StatefulSet instead of Deployment | false |
 | store.statefulSet.size | Size of the PVC | 10G |
 | store.statefulSet.storageClassName | StorageClassName for the PVC | default |

@@ -49,6 +49,32 @@ spec:
         prometheus.io/port: "{{ $root.Values.store.http.port }}"
       {{- end }}
     spec:
+      {{- if $root.Values.store.replicaSharding }}
+      initContainers:
+      - image: busybox
+        name: create-relabel-config
+        command:
+        - sh
+        - -c
+        - |
+          INDEX="$(echo ${POD_NAME} | sed 's/.*-\([[:digit:]]*\)$/\1/')" &&
+          cat > /etc/relabel/relabel-config.yaml << EOF
+          - action: keep
+            regex: ".*-${INDEX}"
+            source_labels:
+            - replica
+          EOF
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        volumeMounts:
+        - mountPath: /etc/relabel
+          name: relabel-config
+          readOnly: false
+      {{- end }}
       containers:
       - name: thanos-store
         image: "{{ $root.Values.image.repository }}:{{ $root.Values.image.tag }}"
@@ -88,6 +114,9 @@ spec:
         {{- if $partion.min }}
         - "--min-time={{ $partion.min }}"
         {{- end}}
+        {{- if $root.Values.store.replicaSharding }}
+        - --selector.relabel-config-file=/etc/relabel/relabel-config.yaml
+        {{- end}}
         {{- if $root.Values.store.extraArgs }}
         {{ toYaml $root.Values.store.extraArgs | nindent 8 }}
         {{- end }}
@@ -106,6 +135,11 @@ spec:
         - mountPath: /etc/certs
           name: {{ $root.Values.store.certSecretName }}
           readOnly: true
+        {{- end }}
+        {{- if $root.Values.store.replicaSharding }}
+         - mountPath: /etc/relabel
+           name: relabel-config
+           readOnly: true
         {{- end }}
         {{- if $root.Values.store.livenessProbe }}
         livenessProbe:
@@ -138,6 +172,10 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ $root.Values.store.certSecretName }}
+      {{- end }}
+      {{- if not $root.Values.store.replicaSharding }}
+      - name: relabel-config
+        emptyDir: {}
       {{- end }}
       {{- with $root.Values.store.securityContext }}
       securityContext: {{ toYaml . | nindent 8 }}
