@@ -137,9 +137,9 @@ spec:
           readOnly: true
         {{- end }}
         {{- if $root.Values.store.replicaSharding }}
-         - mountPath: /etc/relabel
-           name: relabel-config
-           readOnly: true
+        - mountPath: /etc/relabel
+          name: relabel-config
+          readOnly: true
         {{- end }}
         {{- if $root.Values.store.livenessProbe }}
         livenessProbe:
