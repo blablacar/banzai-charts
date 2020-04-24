@@ -76,7 +76,7 @@ spec:
           mountPath: /var/thanos/compact
         resources: {{ toYaml .Values.compact.resources | nindent 10 }}
       volumes:
-      {{- if no .Values.compact.statefulSet.enabled }}
+      {{- if not .Values.compact.statefulSet.enabled }}
       - name: data-volume
       {{- if .Values.compact.dataVolume.backend }}
         {{ toYaml .Values.compact.dataVolume.backend | nindent 8 }}
