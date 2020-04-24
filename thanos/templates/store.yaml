@@ -173,7 +173,7 @@ spec:
           defaultMode: 420
           secretName: {{ $root.Values.store.certSecretName }}
       {{- end }}
-      {{- if not $root.Values.store.replicaSharding }}
+      {{- if $root.Values.store.replicaSharding }}
       - name: relabel-config
         emptyDir: {}
       {{- end }}
