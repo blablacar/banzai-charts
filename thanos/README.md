@@ -286,6 +286,9 @@ timePartioning:
 |----|-----------|--------------|
 | compact.enabled | Enable component | true |
 | compact.replicaCount | Pod replica count | 1 |
+| compact.statefulSet.enabled | Use StatefulSet instead of Deployment | false |
+| compact.statefulSet.size | Size of the PVC | 10G |
+| compact.statefulSet.storageClassName | StorageClassName for the PVC | default |
 | compact.logLevel | Log level | info |
 | compact.logFormat | Log format to use. Possible options: logfmt or json. | logfmt |
 | compact.serviceAccount | Name of the Kubernetes service account to use | "" |
