@@ -57,6 +57,11 @@ store:
   # Use label replica to shard data on store
   replicaSharding: false
   # Extra labels for store pod template
+  # StatefulSet rather than Deployment
+  statefulSet:
+    enabled: false
+    size: 10G
+    storageClassName: default
   labels: {}
   #  cluster: example
   #
