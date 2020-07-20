@@ -54,6 +54,8 @@ store:
   #    selector: {}
   #    volumeName: ""
   #    volumeMode: ""
+  # Use label replica to shard data on store
+  replicaSharding: false
   # Extra labels for store pod template
   labels: {}
   #  cluster: example
