@@ -108,6 +108,11 @@ spec:
           name: {{ $root.Values.store.certSecretName }}
           readOnly: true
         {{- end }}
+        {{- if $root.Values.store.replicaSharding }}
+        - mountPath: /etc/relabel
+          name: relabel-config
+          readOnly: true
+        {{- end }}
         {{- if $root.Values.store.livenessProbe }}
         livenessProbe:
         {{ toYaml $root.Values.store.livenessProbe | nindent 10 }}
@@ -139,6 +144,10 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ $root.Values.store.certSecretName }}
+      {{- end }}
+      {{- if $root.Values.store.replicaSharding }}
+      - name: relabel-config
+        emptyDir: {}
       {{- end }}
       {{- with $root.Values.store.securityContext }}
       securityContext: {{ toYaml . | nindent 8 }}
