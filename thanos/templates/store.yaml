@@ -138,9 +138,9 @@ spec:
           readOnly: true
         {{- end }}
         {{- if $root.Values.store.replicaSharding }}
-         - mountPath: /etc/relabel
-           name: relabel-config
-           readOnly: true
+        - mountPath: /etc/relabel
+          name: relabel-config
+          readOnly: true
         {{- end }}
         {{- if $root.Values.store.livenessProbe }}
         livenessProbe:
@@ -174,7 +174,7 @@ spec:
           defaultMode: 420
           secretName: {{ $root.Values.store.certSecretName }}
       {{- end }}
-      {{- if not $root.Values.store.replicaSharding }}
+      {{- if $root.Values.store.replicaSharding }}
       - name: relabel-config
         emptyDir: {}
       {{- end }}
