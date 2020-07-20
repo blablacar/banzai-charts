@@ -20,7 +20,7 @@ spec:
   strategy: {{ toYaml . | nindent 4 }}
   {{- end }}
   {{- if .Values.compact.statefulSet.enabled }}
-  serviceName: {{ include "thanos.name" compact }}
+  serviceName: {{ include "thanos.name" . }}
   {{- end }}
   selector:
     matchLabels:
