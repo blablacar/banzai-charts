@@ -420,6 +420,11 @@ compact:
   #    selector: {}
   #    volumeName: ""
   #    volumeMode: ""
+  # StatefulSet rather than Deployment
+  statefulSet:
+    enabled: false
+    size: 10G
+    storageClassName: default
   # Extra labels for compact pod template
   labels: {}
   #  cluster: example
