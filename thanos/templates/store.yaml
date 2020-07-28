@@ -60,10 +60,13 @@ spec:
         - |
           INDEX="$(echo ${POD_NAME} | sed 's/.*-\([[:digit:]]*\)$/\1/')" &&
           cat > /etc/relabel/relabel-config.yaml << EOF
+          - action: hashmod
+            source_labels: ["__block_id"]
+            target_label: shard
+            modulus: {{ $root.Values.store.replicaCount }}
           - action: keep
-            regex: ".*-${INDEX}"
-            source_labels:
-            - replica
+            regex: "${INDEX}"
+            source_labels: ["shard"]
           EOF
         env:
         - name: POD_NAME
